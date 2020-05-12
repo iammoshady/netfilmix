@@ -1,0 +1,98 @@
+<div>
+    <a routerLink="/films">Torna a films</a>
+</div>
+
+<div *ngIf="filmService.selectedFilm">
+    <div style="margin-bottom: 20px;">
+        <div>
+            <label>Titolo</label>
+        </div>
+        <div>
+            <input type="text" placeholder="inserisci titolo" [(ngModel)]="filmService.selectedFilm.title">
+        </div>
+    </div>
+
+
+    <div style="margin-bottom: 20px;">
+        <div>
+            <label>Descrizione</label>
+        </div>
+        <div>
+            <input type="text" placeholder="inserisci descrizione" [(ngModel)]="filmService.selectedFilm.description">
+        </div>
+    </div>
+
+
+
+    <div style="margin-bottom: 20px;">
+        <div>
+            <label>Regista</label>
+        </div>
+        <div>
+            <input type="text" placeholder="inserisci regista" [(ngModel)]="filmService.selectedFilm.director">
+        </div>
+    </div>
+
+
+
+    <div style="margin-bottom: 20px;">
+        <div>
+            <label>Durata</label>
+        </div>
+        <div>
+            <input type="text" placeholder="inserisci durata" [(ngModel)]="filmService.selectedFilm.duration">
+        </div>
+    </div>
+
+
+
+    <div style="margin-bottom: 20px;">
+        <div>
+            <label>Anno di uscita</label>
+        </div>
+        <div>
+            <input type="text" placeholder="inserisci anno di uscita" [(ngModel)]="filmService.selectedFilm.releaseYear">
+        </div>
+    </div>
+
+
+
+    <div style="margin-bottom: 20px;">
+        <div>
+            <label>Attori</label>
+        </div>
+        <div>
+            <select [(ngModel)]="filmService.selectedFilm.cast" multiple>
+                <option [value]="actor" *ngFor="let actor of actors">{{ actor.firstname }} {{actor.lastname}}</option>
+            </select>
+        </div>
+    </div>
+
+
+
+    <div style="margin-bottom: 20px;">
+        <div>
+            <label>Generi</label>
+        </div>
+        <div>
+            <select [(ngModel)]="filmService.selectedFilm.genres" multiple>
+                <option [value]="genre" *ngFor="let genre of genres">{{ genre.name }}</option>
+            </select>
+        </div>
+    </div>
+
+
+
+    <div style="margin-bottom: 20px;">
+        <div>
+            <label>Tags</label>
+        </div>
+        <div>
+            <input type="text" placeholder="inserisci tags" [(ngModel)]="filmService.selectedFilm.tags">
+        </div>
+    </div>
+    <div>
+        <button (click)="filmService.editFilm()" routerLink="/films">Salva film</button>
+        </div>
+</div>
+

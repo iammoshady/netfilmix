@@ -1,0 +1,38 @@
+<div>
+    <a routerLink="/films">Film</a>
+</div>
+
+<div>
+    <a routerLink="/actors">Attori</a>
+</div>
+
+<div>
+    <a routerLink="/genres">Generi</a>
+</div>
+
+
+<div>
+    <h3>Ultimi 4 film inseriti</h3>
+
+    <div *ngFor="let film of lastFilms">
+        {{ film.title }} - {{ film.releaseYear }}
+    </div>
+</div>
+
+
+<div>
+    <h3>Top 3 film inseriti</h3>
+
+    <div *ngFor="let film of topFilms">
+        {{ film.title }} - {{ film.releaseYear }}
+    </div>
+</div>
+
+
+<div *!ngIf="userService.loggedUser">
+    <button (click)="userService.logIn()">Login</button>
+</div>
+
+<div *ngIf="userService.loggedUser">
+    BENTORNATO {{ userService.loggedUser.firstname }} !! <button (click)="userService.logout()">Logout</button>
+</div>

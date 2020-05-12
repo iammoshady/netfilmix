@@ -1,0 +1,36 @@
+<div>
+    <a routerLink="/dashboard">Torna alla dashboard</a>
+</div>
+
+<div>
+    <a routerLink="/films/add">Aggiungi un film</a>
+</div>
+
+<div>
+    <a routerLink="/films/edit">Modifica un film</a>
+</div>
+
+<div>
+    Cerca film: <input type="text" placeholder="Search film">
+</div>
+
+
+<div>
+    <div *ngFor="let film of films" (click)="film.showMore = !film.showMore" style="margin-bottom: 30px;">
+        <div>
+            <div> Titolo: {{ film.title }} </div>
+            <div> Voto del pubblico: {{ film.stars }} </div>
+            <div> Durata del film: {{ film.duration }} </div>
+        </div>
+
+        <div *ngIf="film.showMore">
+            <div> Attori: {{ getCastList(film.cast) }} </div>
+            <div> Anno di uscita: {{ film.releaseYear }} </div>
+            <div> Generi: {{ getGenreList(film.genres) }} </div>
+            <div> Tag: {{ film.tags }} </div>
+        </div>
+        <div>
+            <button (click)="selecThisFilm(film)" routerLink="/films/edit">Modifica</button>
+        </div>
+    </div>
+</div>
