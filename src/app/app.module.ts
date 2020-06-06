@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {FormsModule} from '@angular/forms';
+import { HttpClientModule }    from '@angular/common/http';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {NgxWebstorageModule} from 'ngx-webstorage';
 import { ActorsComponent } from './actors/actors.component';
 import { AddActorComponent } from './add-actor/add-actor.component';
 import { AddFilmComponent } from './add-film/add-film.component';
@@ -15,7 +16,13 @@ import { EditFilmComponent } from './edit-film/edit-film.component';
 import { EditGenreComponent } from './edit-genre/edit-genre.component';
 import { FilmsComponent } from './films/films.component';
 import { GenresComponent } from './genres/genres.component';
-import { ITS_JUST_ANGULAR } from '@angular/core/src/r3_symbols';
+import {NgxWebstorageModule} from 'ngx-webstorage';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { StarsComponent } from './stars/stars.component';
+import { FilmListFilterPipe } from './pipes/film-list-filter.pipe';
+import { EditUserComponent } from './edit-user/edit-user.component';
+
+
 
 @NgModule({
   declarations: [
@@ -29,13 +36,19 @@ import { ITS_JUST_ANGULAR } from '@angular/core/src/r3_symbols';
     EditFilmComponent,
     EditGenreComponent,
     FilmsComponent,
-    GenresComponent
+    GenresComponent,
+    StarsComponent,
+    FilmListFilterPipe,
+    EditUserComponent,
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgxWebstorageModule.forRoot(),
-    FormsModule
+    FormsModule,
+    FontAwesomeModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

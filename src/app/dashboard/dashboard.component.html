@@ -1,38 +1,59 @@
-<div>
-    <a routerLink="/films">Film</a>
+<div class="link"><a routerLink="/films">Lista film</a></div>
+<div class="link"><a routerLink="/actors">Lista attori</a></div>
+<div class="link"><a routerLink="/genres">Generi</a></div>
+
+<div *ngIf="!service.loggedUser">
+    <div class="ricerca"><input type="text" [(ngModel)]="username" placeholder="Username"></div>
+    <div class="ricerca"><input type="password" [(ngModel)]="password" placeholder="Password"></div>
+
+    <div *ngIf="successLogin === false" class="scritta"><b>Errore nel login!</b></div>
+
+    <button class="btn btn-outline-info btn-sm buttonLogin" (click)="login()">Login</button>
 </div>
 
-<div>
-    <a routerLink="/actors">Attori</a>
-</div>
-
-<div>
-    <a routerLink="/genres">Generi</a>
-</div>
-
-
-<div>
-    <h3>Ultimi 4 film inseriti</h3>
-
-    <div *ngFor="let film of lastFilms">
-        {{ film.title }} - {{ film.releaseYear }}
-    </div>
+<div *ngIf="service.loggedUser" >
+   <div class="scrittaLogIn"><b>BENTORNATO</b> {{ service.loggedUser.firstname }} {{ service.loggedUser.lastname }}! </div> <button class="btn btn-outline-dark btn-sm buttonLogout"  (click)="service.logout()">LOGOUT</button>
+   <div class="scrittaLogIn">Clicca qui sotto se desideri modificare i tuoi dati</div><button (click)="selectThisUser(service.loggedUser)" routerLink="/users/edit" class="btn btn-outline-dark btn-sm buttonLogout">CONFERMA</button>
 </div>
 
 
-<div>
-    <h3>Top 3 film inseriti</h3>
 
-    <div *ngFor="let film of topFilms">
-        {{ film.title }} - {{ film.releaseYear }}
-    </div>
+
+<h5 class="sottoTitoli">ULTIMI FILM INSERITI</h5>
+<div class="card-deck divGrande">
+    <div *ngFor="let film of lastFilm" class="card " style="width: 18rem;" > 
+        <img [src]="film.coverUrl" class="card-img-top" alt="...">
+        <div class="card-body" >
+          <h5 class="card-title"><b> Titolo: </b>{{film.title}}</h5>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><b> Regista: </b>{{film.director}}</li>
+          <li class="list-group-item"><b> Durata: </b>{{film.duration}}</li>
+          <li class="list-group-item"><b> Anno di uscita: </b>{{film.releaseYear}}</li>
+        </ul>
+      </div>
+</div>
+    
+
+
+<h5 class="sottoTitoli">TOP 3 FILM</h5>
+<div class="card-deck divGrande">
+    <div *ngFor="let film of topFilm" class="card " style="width: 18rem;" > 
+        <img [src]="film.coverUrl" class="card-img-top" alt="...">
+        <div class="card-body" >
+          <h5 class="card-title"><b> Titolo: </b>{{film.title}}</h5>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><b> Regista: </b>{{film.director}}</li>
+          <li class="list-group-item"><b> Durata: </b>{{film.duration}}</li>
+          <li class="list-group-item"><b> Anno di uscita: </b>{{film.releaseYear}}</li>
+        </ul>
+      </div>
 </div>
 
 
-<div *!ngIf="userService.loggedUser">
-    <button (click)="userService.logIn()">Login</button>
-</div>
 
-<div *ngIf="userService.loggedUser">
-    BENTORNATO {{ userService.loggedUser.firstname }} !! <button (click)="userService.logout()">Logout</button>
-</div>
+
+
+
+

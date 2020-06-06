@@ -1,0 +1,63 @@
+a:link, a:visited {
+    text-decoration: none;
+    color: #F58529;
+    background-color: transparent;
+}
+a:hover, a:active {
+    text-decoration: underline;
+    color: rgb(92, 26, 26);
+}
+.link{
+    margin-left:40%;
+    margin-bottom:3%
+}
+
+.sottoTitoli{
+    margin-top:5%;
+    color:rgb(177, 23, 23)
+}
+
+.ricerca{
+    margin-top: 3%;
+    margin-left:25%
+}
+.buttonLogin{
+    margin-top:1.5%;
+    margin-left:25%
+}
+.scritta{
+    margin-left:25%;
+}
+
+@media screen and (min-width: 1200px) {
+    .link{
+        margin-left:1%;
+        margin-bottom:1%
+    }
+    .divGrande{
+        margin-left:1%
+    }
+    .sottoTitoli{
+        margin-left:1%;
+        margin-top:1%
+    }
+    .ricerca{
+        margin-bottom: 1%;
+        margin-left:1%;
+        margin-top:0%
+    }
+    .buttonLogin{
+        margin-left:1%;
+        margin-top: 0.5%;
+    }
+    .buttonLogout{
+        margin-left:1%;
+    }
+    .scrittaLogIn{
+        margin-left:1%;
+        margin-bottom:0.5%
+    }
+    .scritta{
+        margin-left:1%
+    }
+}

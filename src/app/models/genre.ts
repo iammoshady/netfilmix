@@ -1,5 +1,8 @@
+import { Film } from './film';
 
-export interface Genre {
-    id?: number;
-    name: string;
+export interface Genre{
+    id?:number;
+    name:string;
+    films?: Film[];
+    selected?: boolean;
 }

@@ -1,36 +1,76 @@
-<div>
-    <a routerLink="/dashboard">Torna alla dashboard</a>
+<body style="background-image: url(../assets/images/sfondo.jpg);">
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">NetFilmix</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/films/add">Aggiungi film </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/dashboard">Dashboard</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" [(ngModel)]="text">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+
+
+
+
+
+
+<div class="ricerca">
+    <h6>Ricerca film: <input type="text" placeholder="" [(ngModel)]="text"></h6>
 </div>
 
-<div>
-    <a routerLink="/films/add">Aggiungi un film</a>
-</div>
 
-<div>
-    <a routerLink="/films/edit">Modifica un film</a>
-</div>
+    <div class="row row-cols-2 row-cols-md-5" style="margin-left: 100px;  margin-top: 20px;">
+        <div *ngFor="let film of films|filmListFilter:text" class="divGrande">
+            <div class="col mb-5">
+                <div class="card text-white bg-dark mb-3" style="width: 16rem;">
+                    <img [src]="film.coverUrl" class="card-img-top" alt="cover film">
+                    <div class="card-body">
+                        <h5 class="card-title">{{film.title}}</h5>
+                        <div class="card-text">
 
-<div>
-    Cerca film: <input type="text" placeholder="Search film">
-</div>
+                            <div class="espandi">
+                                <b *ngIf="userService.loggedUser" (click)="hearth(film)">&#x2661;</b><b>Valutazione:
+                                    {{film.stars}}</b>
+                                <app-stars (voteChanged)="setVote(film, $event)" [vote]="film.stars"></app-stars>
+                                <b>Durata: </b>{{film.duration}}
+                                <button (click)="film.show = !film.show"
+                                    class="btn btn-outline-info btn-sm">Espandi</button>
+                            </div>
 
+                            <div *ngIf="film.show">
+                                <b>Attori: </b>
+                                <p *ngIf="!film.cast.length">-</p>
+                                <p *ngIf="film.cast.length">
+                                    <ng-container *ngFor="let actor of film.cast; let isLast = last">
+                                        {{ actor.firstname + ' ' + actor.lastname + (isLast ? '' : ', ') }}
+                                    </ng-container>
+                                </p>
 
-<div>
-    <div *ngFor="let film of films" (click)="film.showMore = !film.showMore" style="margin-bottom: 30px;">
-        <div>
-            <div> Titolo: {{ film.title }} </div>
-            <div> Voto del pubblico: {{ film.stars }} </div>
-            <div> Durata del film: {{ film.duration }} </div>
-        </div>
+                                <b>Anno di uscita: </b>{{film.releaseYear}} <b>Generi: </b>
+                                {{getGenreList(film.genres)}} <b>Tag:</b> {{film.tags}}
+                            </div>
+                            <div><button (click)='selectThisFilm(film)' routerLink="/films/edit/{{ film.id}}"
+                                    class="btn btn-outline-info btn-sm">Modifica film</button></div>
+                            <div><button (click)='remove(film)' class="btn btn-outline-info btn-sm">Rimuovi
+                                    film</button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <div *ngIf="film.showMore">
-            <div> Attori: {{ getCastList(film.cast) }} </div>
-            <div> Anno di uscita: {{ film.releaseYear }} </div>
-            <div> Generi: {{ getGenreList(film.genres) }} </div>
-            <div> Tag: {{ film.tags }} </div>
-        </div>
-        <div>
-            <button (click)="selecThisFilm(film)" routerLink="/films/edit">Modifica</button>
         </div>
     </div>
-</div>
+</body>

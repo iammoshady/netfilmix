@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "netfilmix": {
+    "netflix": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/netfilmix",
+            "outputPath": "dist/netflix",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -24,6 +24,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -62,18 +63,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "netfilmix:build"
+            "browserTarget": "netflix:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "netfilmix:build:production"
+              "browserTarget": "netflix:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "netfilmix:build"
+            "browserTarget": "netflix:build"
           }
         },
         "test": {
@@ -110,18 +111,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "netfilmix:serve"
+            "devServerTarget": "netflix:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "netfilmix:serve:production"
+              "devServerTarget": "netflix:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "netfilmix",
+  "defaultProject": "netflix",
   "cli": {
     "analytics": false
   }

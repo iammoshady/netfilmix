@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FilmService } from '../services/film.service';
+import { FilmService } from '../Services/film.service';
 import { Film } from '../models/film';
-import { Actor } from '../models/actor';
-import { Genre } from '../models/genre';
+import { Actor } from '../models/Actor';
+import { Genre } from '../models/Genre';
+import { CONFIG } from '../config';
+import { UserService } from '../Services/user.service';
+
+
 
 @Component({
   selector: 'app-films',
@@ -10,29 +14,50 @@ import { Genre } from '../models/genre';
   styleUrls: ['./films.component.css']
 })
 export class FilmsComponent implements OnInit {
+  films:Film[] =[];
+  CONFIG = CONFIG
+  timeout;
+  text:string = '';
 
-  films: Film[];
-
-  constructor(private filmService: FilmService) { }
+  constructor(public service:FilmService,
+              public userService: UserService) { }
 
   ngOnInit(): void {
-    this.films = this.filmService.getFilms();
+    this.service.getFilms().subscribe(response =>{
+      this.films = response;
+    });
   }
 
-  getCastList(cast: Actor[]): string{
-    return cast.map(x => x.firstname + " " + x.lastname).join(", ");
+  getCastList(cast:Actor[]):string{
+    return cast.map(x=> x.fistname +' '+ x.lastname).join(', ');
+  }
+  getGenreList(genre:Genre[]):string{
+    return genre.map(x=> x.name).join(', ');
   }
 
-
-  getGenreList(genres: Genre[]): string{
-    return genres.map(x => x.name).join(", ");
-  }
-
-
-
-  selecThisFilm(film: Film): void{
+  selectThisFilm(film:Film):void{
     event.stopPropagation();
-    this.filmService.selectedFilm = film;
+    this.service.selectedFilm  = film
   }
 
+  /*searchFilm(event){
+    this.text = event.target.value.toLowerCase();
+    
+    //console.log(this.films)
+
+  }*/
+
+  hearth(film){
+    this.userService.loggedUser.favoritesFilm.push(film)
+  }
+
+  setVote(film:Film, vote:number){
+    film.stars = vote
+    this.service.editFilm(film).subscribe(response => console.log(response))  
+  }
+
+  remove (film: Film): void {
+    this.service.removeFilm(film).subscribe(() => this.ngOnInit());
+  }
+  
 }

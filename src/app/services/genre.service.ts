@@ -1,66 +1,52 @@
 import { Injectable } from '@angular/core';
-import {LocalStorageService, SessionStorageService} from 'ngx-webstorage';
-import { Genre } from '../models/genre';
+import { Genre } from '../models/Genre';
+import { LocalStorageService } from 'ngx-webstorage';
+import { HttpClient } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { CONFIG } from '../config';
+import { tap } from 'rxjs/operators';
 
 
-const GENRES: Genre[] = [
-  {
-    name: "Horror"
-  },
-
-  {
-    name: "Thriller"
-  },
-
-
-  {
-    name: "Action"
-  },
-
-  {
-    name: "Romantico"
-  }
-
-];
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class GenreService {
-
-
-
   genres: Genre[];
-  selectedGenre: Genre;
-
-  newGenre: Genre = {
-    name: ""
+  newGenre: Genre;
+  selectedGenre: Genre = {
+    id:0,
+    name:""
   };
 
+  constructor(public localStorage:LocalStorageService, private http: HttpClient) { }
 
-  getGenre(): Genre[]{
-    this.genres = this.localStorage.retrieve("genres") || GENRES;
-    return this.genres;
-  }
-
-
-  addGenre(): void{
-    this.genres.push(this.newGenre);
-    this.localStorage.store("genres", this.genres);
-
-    this.newGenre = {
-      name: ""
+  getGenres(): Observable<Genre[]> {
+    if (this.genres) {
+      return of(this.genres);
+    } else {
+      return this.http.get<Genre[]>(CONFIG.hostApi + '/genre/read.php').pipe(
+        tap(response => this.genres = response),
+      );
     }
   }
 
-
-
-  editGenre(): void{
-    this.localStorage.store("genres", this.genres);
-    this.selectedGenre = null;
+  addGenres(): void{
+    this.genres.push(this.selectedGenre);
+    this.localStorage.store('genres', this.genres);
+    this.reset();
   }
 
-  constructor(private localStorage:LocalStorageService) { }
+  reset():void{
+    this.selectedGenre =  {
+      id:0,
+      name:""  
+    }
+  }
 
+  edit(){   
+    this.selectedGenre = null;
+    this.localStorage.store('genres', this.genres);
+  }
 }
