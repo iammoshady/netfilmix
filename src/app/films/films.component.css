@@ -8,27 +8,10 @@ a:hover, a:active {
     color: rgb(92, 26, 26);
 }
 
-.link{
-    margin-left:33%;
-    margin-bottom:3%
-}
-.ricerca{
-    margin-top: 5%;
-}
-.espandi{
-    margin-bottom: 1%;
+
+.divider{
+    width:10px;
+    height:auto;
+    display:inline-block;
 }
 
-@media screen and (min-width: 1200px) {
-    .link{
-        margin-left:1%;
-        margin-bottom:1%
-    }
-    .divGrande{
-        margin-left:1%;
-    }
-    .ricerca{
-        margin-top: 2%;
-        margin-left:1%
-    }
-}

@@ -18,6 +18,7 @@ export class FilmsComponent implements OnInit {
   CONFIG = CONFIG
   timeout;
   text:string = '';
+  
 
   constructor(public service:FilmService,
               public userService: UserService) { }
@@ -40,12 +41,12 @@ export class FilmsComponent implements OnInit {
     this.service.selectedFilm  = film
   }
 
-  /*searchFilm(event){
+  searchFilm(event){
     this.text = event.target.value.toLowerCase();
     
     //console.log(this.films)
 
-  }*/
+  }
 
   hearth(film){
     this.userService.loggedUser.favoritesFilm.push(film)

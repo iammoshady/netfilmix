@@ -151,20 +151,20 @@ export class FilmService {
 
     getFilms(): Observable<Film[]> {
       // Se this.films c'è già, lo ritorno subito (come Observable) altrimenti chiamo il server
-    //  if (this.films) {
-     //   return of(this.films);
-     // } else {
+     if (this.films) {
+        return of(this.films);
+      } else {
         return this.http.get<Film[]>(CONFIG.hostApi + '/film/read.php').pipe(
           tap(response => {
             console.log('Film scaricati dal server:', response);
             this.films = response; 
           }),
-         // catchError(error => {
-          //  alert(error.status + ': ' + error.error);
-           // return [];
-        //  })
+          catchError(error => {
+           alert(error.status + ': ' + error.error);
+            return [];
+          })
         );
-      //}
+      }
     }
 
   addFilm(film: Film): Observable<any> {
@@ -277,6 +277,6 @@ removeFilm(film: Film): Observable<any> {
     return films.sort(function(film1, film2){
       if (film1.stars > film2.stars)
           return -1;
-  }).slice(0,3);
+  }).slice(0,4);
   }
 }
