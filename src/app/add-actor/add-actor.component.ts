@@ -22,7 +22,7 @@ export class AddActorComponent implements OnInit {
 
   resetActor(): void {
     this.actors = {
-      fistname: '',
+      firstname: '',
       lastname: ''
     }
   }

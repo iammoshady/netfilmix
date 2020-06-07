@@ -36,8 +36,8 @@ export class AddFilmComponent implements OnInit {
 
 
       this.actors.sort((a, b) => {
-        let nameA = (a.fistname + ' ' + a.lastname).toUpperCase();
-        let nameB = (b.fistname + ' ' + b.lastname).toUpperCase();
+        let nameA = (a.firstname + ' ' + a.lastname).toUpperCase();
+        let nameB = (b.firstname + ' ' + b.lastname).toUpperCase();
         if (nameA < nameB) {
           return -1;
         }

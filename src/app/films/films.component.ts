@@ -31,7 +31,7 @@ export class FilmsComponent implements OnInit {
   }
 
   getCastList(cast: Actor[]): string {
-    return cast.map(x => x.fistname + ' ' + x.lastname).join(', ');
+    return cast.map(x => x.firstname + ' ' + x.lastname).join(', ');
   }
   getGenreList(genre: Genre[]): string {
     return genre.map(x => x.name).join(', ');

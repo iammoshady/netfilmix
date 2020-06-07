@@ -15,7 +15,7 @@ export class ActorService {
   actors: Actor[];
   selectedActor: Actor;
   newActor: Actor = {
-    fistname: '',
+    firstname: '',
     lastname: ''
   };
 
@@ -75,7 +75,7 @@ export class ActorService {
     this.localStorage.store('actors', this.actors);
 
     this.newActor = {
-      fistname: '',
+      firstname: '',
       lastname: ''
     };*/
   }
