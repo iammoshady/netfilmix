@@ -11,19 +11,19 @@ import { Genre } from '../models/Genre';
 export class GenresComponent implements OnInit {
 
   genres: Genre[];
-  
+
   constructor(private genreService: GenreService, private filmService: FilmService) { }
 
   ngOnInit() {
     this.genreService.getGenres().subscribe(response => {
       this.genres = response;
-      
+
       this.filmService.getFilms().subscribe(films => {
         this.genres.map(genre => {
           genre.films = films.filter(film => film.genres.find(x => x.id == genre.id) != null);
           return genre;
         });
-        
+
         this.genres.sort((a, b) => {
           let nameA = (a.name).toUpperCase();
           let nameB = (b.name).toUpperCase();

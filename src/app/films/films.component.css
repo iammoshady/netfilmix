@@ -1,17 +1,11 @@
-a:link, a:visited {
-    text-decoration: none;
-    color: #F58529;
-    background-color: transparent;
-}
-a:hover, a:active {
-    text-decoration: underline;
-    color: rgb(92, 26, 26);
-}
-
-
 .divider{
     width:10px;
     height:auto;
     display:inline-block;
 }
+
+.navbar-brand img{
+    height: 60px;
+    padding-left: 30px;
+} 
 

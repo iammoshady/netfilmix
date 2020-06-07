@@ -1,4 +1,4 @@
-import { Component, Input, Output ,EventEmitter, OnChanges} from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { faStar, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { faStarHalfAlt } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarEmpty } from '@fortawesome/free-regular-svg-icons';
@@ -12,23 +12,23 @@ export class StarsComponent implements OnChanges {
 
   constructor() { }
 
-  @Input() vote:number = 2
+  @Input() vote: number = 2
   @Output() voteChanged = new EventEmitter();
 
-  icons:IconDefinition[]  = []
+  icons: IconDefinition[] = []
   faStar = faStar;
   faStarHalf = faStarHalfAlt;
   faStarEmpty = faStarEmpty;
 
-  
+
   ngOnChanges(): void {
     this.icons = []
-    for(var i =1; i<=5;i++){
-      if(this.vote >=i){
+    for (var i = 1; i <= 5; i++) {
+      if (this.vote >= i) {
         this.icons.push(this.faStar);
-      }else if(this.vote >=(i-0.5)){
+      } else if (this.vote >= (i - 0.5)) {
         this.icons.push(this.faStarHalf)
-      }else{
+      } else {
         this.icons.push(this.faStarEmpty)
       }
     }

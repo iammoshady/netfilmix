@@ -1,20 +1,57 @@
-<div><a class="link" routerLink="/dashboard">Torna alla dashboard</a></div>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let genre of genres">
-            
-            <div class="card border-danger mb-3" style="max-width: 18rem;">                  
-                <div class="card-header bg-danger border-danger">{{ genre.name }}</div>
+<body style="background-image: url(../assets/images/sfondo.jpg); color: white;">
 
-                <!-- Info -->
-                <div class="card-body">
-                    <h6>Film</h6>
-                    <p *ngIf="!genre.films.length">Nessuno</p>
-                    <ul *ngIf="genre.films.length">
-                        <li *ngFor="let film of genre.films">{{ film.title }}</li>
-                    </ul>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top navbar-dark bg-dark">
+        <a class="navbar-brand"> <img src="../assets/images/netfilmix.png"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse " id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/films">Films</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/actors">Attori</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/genres/add">Aggiungi Genere </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/dashboard">Dashboard</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+
+    <div class="container">
+        <div class="row row-cols-2 row-cols-md-4" style="margin-top: 20px;">
+            <div *ngFor="let genre of genres" style="width: 18rem;">
+                <div class="col mb-5">
+                    <div class="card text-white bg-dark mb-3" style="width: 16rem;">
+                        <div class="card-body">
+                            <h1 class="card-title">{{ genre.name }}</h1>
+                            <div class="card-text">
+                                <h2>Film</h2>
+                                <p class="card-text" *ngIf="!genre.films.length">Nessuno</p>
+                                <ul *ngIf="genre.films.length">
+                                    <li *ngFor="let film of genre.films">{{ film.title }}</li>
+                                </ul>
+
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
-</div>
+
+
+
+</body>

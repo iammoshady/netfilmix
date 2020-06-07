@@ -15,13 +15,13 @@ export class ActorsComponent implements OnInit {
   ngOnInit() {
     this.actorService.getActors().subscribe(response => {
       this.actors = response;
-      
+
       this.filmService.getFilms().subscribe(films => {
         this.actors.map(actor => {
           actor.films = films.filter(film => film.cast.find(x => x.id == actor.id) != null);
           return actor;
         });
-        
+
         this.actors.sort((a, b) => {
           let nameA = (a.fistname + ' ' + a.lastname).toUpperCase();
           let nameB = (b.fistname + ' ' + b.lastname).toUpperCase();

@@ -16,11 +16,11 @@ export class GenreService {
   genres: Genre[];
   newGenre: Genre;
   selectedGenre: Genre = {
-    id:0,
-    name:""
+    id: 0,
+    name: ""
   };
 
-  constructor(public localStorage:LocalStorageService, private http: HttpClient) { }
+  constructor(public localStorage: LocalStorageService, private http: HttpClient) { }
 
   getGenres(): Observable<Genre[]> {
     if (this.genres) {
@@ -32,20 +32,20 @@ export class GenreService {
     }
   }
 
-  addGenres(): void{
+  addGenres(): void {
     this.genres.push(this.selectedGenre);
     this.localStorage.store('genres', this.genres);
     this.reset();
   }
 
-  reset():void{
-    this.selectedGenre =  {
-      id:0,
-      name:""  
+  reset(): void {
+    this.selectedGenre = {
+      id: 0,
+      name: ""
     }
   }
 
-  edit(){   
+  edit() {
     this.selectedGenre = null;
     this.localStorage.store('genres', this.genres);
   }

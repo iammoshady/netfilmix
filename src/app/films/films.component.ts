@@ -14,51 +14,49 @@ import { UserService } from '../Services/user.service';
   styleUrls: ['./films.component.css']
 })
 export class FilmsComponent implements OnInit {
-  films:Film[] =[];
+  films: Film[] = [];
   CONFIG = CONFIG
   timeout;
-  text:string = '';
-  
+  text: string = '';
 
-  constructor(public service:FilmService,
-              public userService: UserService) { }
+
+
+  constructor(public service: FilmService,
+    public userService: UserService) { }
 
   ngOnInit(): void {
-    this.service.getFilms().subscribe(response =>{
+    this.service.getFilms().subscribe(response => {
       this.films = response;
     });
   }
 
-  getCastList(cast:Actor[]):string{
-    return cast.map(x=> x.fistname +' '+ x.lastname).join(', ');
+  getCastList(cast: Actor[]): string {
+    return cast.map(x => x.fistname + ' ' + x.lastname).join(', ');
   }
-  getGenreList(genre:Genre[]):string{
-    return genre.map(x=> x.name).join(', ');
+  getGenreList(genre: Genre[]): string {
+    return genre.map(x => x.name).join(', ');
   }
 
-  selectThisFilm(film:Film):void{
+  selectThisFilm(film: Film): void {
     event.stopPropagation();
-    this.service.selectedFilm  = film
+    this.service.selectedFilm = film
   }
 
-  searchFilm(event){
+  searchFilm(event) {
     this.text = event.target.value.toLowerCase();
-    
-    //console.log(this.films)
-
   }
 
-  hearth(film){
+  hearth(film) {
     this.userService.loggedUser.favoritesFilm.push(film)
   }
 
-  setVote(film:Film, vote:number){
+  setVote(film: Film, vote: number) {
     film.stars = vote
-    this.service.editFilm(film).subscribe(response => console.log(response))  
+    this.service.editFilm(film).subscribe()
   }
 
-  remove (film: Film): void {
+  remove(film: Film): void {
     this.service.removeFilm(film).subscribe(() => this.ngOnInit());
   }
-  
+
 }

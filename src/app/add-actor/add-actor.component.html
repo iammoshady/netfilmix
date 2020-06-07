@@ -1,1 +1,49 @@
-<p>add-actor works!</p>
+<body style="background-image: url(../assets/images/sfondo.jpg); color: white;">
+
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top navbar-dark bg-dark">
+        <a class="navbar-brand"> <img src="../assets/images/netfilmix.png"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse " id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/films">Films</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/actors">Attori</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/genres">Generi</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/dashboard">Dashboard</a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+
+
+
+    <div class="container">
+        <div class="form-row">
+            <div class="col-md-6 mb-3">
+                <label for="validationDefault01">Nome</label>
+                <input type="text" class="form-control" placeholder="Nome" [(ngModel)]="actors.fistname">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="validationDefault02">Cognome</label>
+                <input type="text" class="form-control" placeholder="Cognome" [(ngModel)]="actors.lastname"
+                    name="lastname">
+            </div>
+        </div>
+        <button class="btn btn-primary" (click)="addActor()" routerLink="/actors">Add Actor</button>
+    </div>
+</body>

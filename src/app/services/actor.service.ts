@@ -3,8 +3,9 @@ import { Actor } from '../models/Actor';
 import { LocalStorageService } from 'ngx-webstorage';
 import { Observable, of } from 'rxjs';
 import { CONFIG } from '../config';
-import { tap, map, catchError } from 'rxjs/operators';
+import { tap, catchError } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { UserService } from './user.service';
 
 
 @Injectable({
@@ -18,6 +19,12 @@ export class ActorService {
     lastname: ''
   };
 
+  constructor(
+    public localStorage: LocalStorageService,
+    private http: HttpClient,
+    private userService: UserService
+  ) { }
+
   getActors(): Observable<Actor[]> {
     if (this.actors) {
       return of(this.actors);
@@ -28,24 +35,57 @@ export class ActorService {
     }
   }
 
-  addActor(): void {
-    this.actors.push(this.newActor);
+  addActor(actor: Actor): Observable<any> {
+
+    let loggedUser = this.userService.getLoggedUser();
+
+    if (!loggedUser) {
+      alert('please login');
+      return;
+    }
+
+
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': loggedUser.token
+      })
+    };
+
+
+    return this.http.post<any>(CONFIG.hostApi + '/actor/create.php', actor, httpOptions).pipe(
+      tap(response => {
+        if (response.success) {
+          if (this.actors) {
+            actor.id = response.id;
+            this.actors.push(actor);
+          } else {
+            this.getActors().subscribe();
+          }
+        }
+      }),
+      catchError(error => {
+        alert(error.status + ': ' + error.error);
+        return of(false);
+      })
+    );
+
+
+   /* this.actors.push(this.newActor);
     this.localStorage.store('actors', this.actors);
 
-    // Reset newActor
     this.newActor = {
       fistname: '',
       lastname: ''
-    };
+    };*/
   }
+
+
 
   editActor(): void {
     this.localStorage.store('actors', this.actors);
     this.selectedActor = null;
   }
 
-  constructor(
-    private localStorage: LocalStorageService,
-    private http: HttpClient
-  ) { }
+
 }

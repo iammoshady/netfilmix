@@ -13,18 +13,18 @@ import { Film } from '../models/film';
   styleUrls: ['./add-film.component.css']
 })
 export class AddFilmComponent implements OnInit {
-  actors:Actor[];
-  genres:Genre[];
+  actors: Actor[];
+  genres: Genre[];
   film: Film;
 
-  constructor(private router: Router,public filmService:FilmService, public actorService:ActorService, public genreService:GenreService) { }
+  constructor(private router: Router, public filmService: FilmService, public actorService: ActorService, public genreService: GenreService) { }
 
   ngOnInit() {
     this.resetFilm();
-    
+
     this.actorService.getActors().subscribe(actors => {
       this.actors = actors;
-      
+
       this.actors.map(x => {
         x.selected = false;
         return x;
@@ -46,14 +46,14 @@ export class AddFilmComponent implements OnInit {
         }
       });
     });
-    
-    this.genreService.getGenres().subscribe(genres => {
-    this.genres = genres;
 
-    this.genres.map(x => {
-      x.selected = false;
-      return x;
-    });
+    this.genreService.getGenres().subscribe(genres => {
+      this.genres = genres;
+
+      this.genres.map(x => {
+        x.selected = false;
+        return x;
+      });
 
       this.genres.sort((a, b) => {
         let nameA = a.name.toUpperCase();
@@ -68,9 +68,9 @@ export class AddFilmComponent implements OnInit {
           return 1;
         }
       });
-    });  
+    });
   }
-  
+
   resetFilm(): void {
     this.film = {
       title: '',
@@ -82,15 +82,15 @@ export class AddFilmComponent implements OnInit {
       cast: [],
       genres: [],
       tags: '',
-      coverUrl:''
+      coverUrl: ''
     }
   }
-  
+
   addFilm() {
-      this.film.cast = this.actors.filter(x => x.selected);
-      this.film.genres = this.genres.filter(x => x.selected);
-      
-      this.filmService.addFilm(this.film).subscribe(response => {
+    this.film.cast = this.actors.filter(x => x.selected);
+    this.film.genres = this.genres.filter(x => x.selected);
+
+    this.filmService.addFilm(this.film).subscribe(response => {
       if (response.success) {
         this.router.navigate(['films']);
       }

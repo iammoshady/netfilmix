@@ -10,18 +10,18 @@ import { User } from '../models/User';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  lastFilm : Film[];
+  lastFilm: Film[];
   topFilm: Film[];
 
   username: string;
   password: string;
   successLogin: boolean;
   constructor(public service: UserService,
-              public filmService: FilmService
-     ) { }
+    public filmService: FilmService
+  ) { }
 
   ngOnInit(): void {
-    this.filmService.getFilms().subscribe(response =>{
+    this.filmService.getFilms().subscribe(response => {
       this.lastFilm = this.filmService.getLastFilms(response);
       this.topFilm = this.filmService.getTopFilms(response);
 
@@ -32,18 +32,12 @@ export class DashboardComponent implements OnInit {
     this.successLogin = this.service.login(this.username, this.password);
   }
 
-  hearth(film){
-    console.log("INIZIO")
-    console.log(this.service.loggedUser.favoritesFilm)
+  hearth(film) {
     this.service.loggedUser.favoritesFilm.push(film)
-
-    console.log("DOPO PUSH")
-
-
   }
 
-  selectThisUser(user:User):void{
+  selectThisUser(user: User): void {
     event.stopPropagation();
-    this.service.loggedUser  = user;
+    this.service.loggedUser = user;
   }
 }
